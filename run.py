@@ -1,4 +1,3 @@
-# random function for generationg the ships on the board
 from random import randint
 
 player_board = []
@@ -40,9 +39,26 @@ def print_board(board):
 def gen_random_num(board):
     """
     Generate random number within the dimensions of the board.
+    Minus 1 as list index stars at 0 instead of 1
     Used to place the ships in random locations
     """
     return randint(0, len(board) - 1)
+
+
+def place_ships(board):
+    """
+    Randomly generate and place 5 ships on the board.
+    A counter keeps track of the number of ships.
+    """
+    num_of_ships = 0
+    while num_of_ships < 4:
+        num_of_ships = 0
+        ship_col = gen_random_num(board)
+        ship_row = gen_random_num(board)
+        board[ship_row][ship_col] = " S "
+        for row in board:
+            num_of_ships += row.count(" S ")
+        print(num_of_ships)
 
 
 welcome_msg()
@@ -52,7 +68,9 @@ print("This is player's board")
 create_board(computer_board)
 print_board(computer_board)
 print("This is computer's board")
-
+place_ships(player_board)
+place_ships(computer_board)
+print("The ships have been placed, let's begin!")
 
 
 # Place ships on the board
