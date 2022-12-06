@@ -1,5 +1,4 @@
-# Write your code to expect a terminal of 80 characters wide and 24 rows high
-
+# random function for generationg the ships on the board
 from random import randint
 
 player_board = []
@@ -20,8 +19,13 @@ def welcome_msg():
 
 
 def create_board(board):
-    for x in range(6):
-        board.append(["O"] * 6)
+    """
+    Create the game board from the empty list.
+    This function generates a nested list.
+    It consist of 5 rows and 5 columns of the letter "O"
+    """
+    for x in range(5):
+        board.append(["O"] * 5)
     return board
 
 
@@ -33,6 +37,14 @@ def print_board(board):
         print((" ").join(row))
 
 
+def gen_random_num(board):
+    """
+    Generate random number within the dimensions of the board.
+    Used to place the ships in random locations
+    """
+    return randint(0, len(board) - 1)
+
+
 welcome_msg()
 create_board(player_board)
 print_board(player_board)
@@ -41,3 +53,10 @@ create_board(computer_board)
 print_board(computer_board)
 print("This is computer's board")
 
+
+
+# Place ships on the board
+# Player selection for placing the shot
+# Random selection for computer's shot
+# Check how many ships are hit
+# Round counter
