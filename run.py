@@ -3,6 +3,9 @@ from random import randint
 PLAYER_BOARD = []
 COMPUTER_BOARD = []
 HIDDEN_BOARD = []
+player_score = 0
+computer_score = 0
+
 
 
 def welcome_msg():
@@ -32,8 +35,12 @@ def print_board(board):
     """
     Display the game board
     """
+    print("  1 2 3 4 5 ")
+    print("  ---------")
+    row_number = 1
     for row in board:
-        print((" ").join(row))
+        print(row_number, (" ").join(row))
+        row_number += 1
 
 
 def gen_random_num(board):
@@ -55,16 +62,20 @@ def place_ships(board):
         while board[ship_row][ship_column] == "S":
             ship_row, ship_column = randint(0, 4), randint(0, 4)
         board[ship_row][ship_column] = "S"
-    print(board)
 
+
+#def player_target_location():
+
+
+#def computer_target_location():
 
 welcome_msg()
 create_board(PLAYER_BOARD)
 print_board(PLAYER_BOARD)
-print("This is player's board")
+print("This is the player's board")
 create_board(COMPUTER_BOARD)
 print_board(COMPUTER_BOARD)
-print("This is computer's board")
+print("This is the computer's board")
 place_ships(PLAYER_BOARD)
 place_ships(COMPUTER_BOARD)
 print("The ships have been placed, let the game begin!")
