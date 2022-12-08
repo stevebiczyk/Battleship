@@ -1,8 +1,8 @@
 from random import randint
 
-player_board = []
-computer_board = []
-hidden_board = []
+PLAYER_BOARD = []
+COMPUTER_BOARD = []
+HIDDEN_BOARD = []
 
 
 def welcome_msg():
@@ -50,27 +50,24 @@ def place_ships(board):
     Randomly generate and place 5 ships on the board.
     A counter keeps track of the number of ships.
     """
-    num_of_ships = 0
-    while num_of_ships < 4:
-        num_of_ships = 0
-        ship_col = gen_random_num(board)
-        ship_row = gen_random_num(board)
-        board[ship_row][ship_col] = " S "
-        for row in board:
-            num_of_ships += row.count(" S ")
-        print(num_of_ships)
+    for ship in range(5):
+        ship_row, ship_column = randint(0, 4), randint(0, 4)
+        while board[ship_row][ship_column] == "S":
+            ship_row, ship_column = randint(0, 4), randint(0, 4)
+        board[ship_row][ship_column] = "S"
+    print(board)
 
 
 welcome_msg()
-create_board(player_board)
-print_board(player_board)
+create_board(PLAYER_BOARD)
+print_board(PLAYER_BOARD)
 print("This is player's board")
-create_board(computer_board)
-print_board(computer_board)
+create_board(COMPUTER_BOARD)
+print_board(COMPUTER_BOARD)
 print("This is computer's board")
-place_ships(player_board)
-place_ships(computer_board)
-print("The ships have been placed, let's begin!")
+place_ships(PLAYER_BOARD)
+place_ships(COMPUTER_BOARD)
+print("The ships have been placed, let the game begin!")
 
 
 # Place ships on the board
