@@ -27,7 +27,7 @@ def create_board(board):
     It consist of 5 rows and 5 columns of the letter "O"
     """
     for x in range(5):
-        board.append(["O"] * 5)
+        board.append(["."] * 5)
     return board
 
 
@@ -58,26 +58,26 @@ def place_ships(board):
     A counter keeps track of the number of ships.
     """
     for ship in range(5):
-        ship_row, ship_column = randint(0, 4), randint(0, 4)
+        ship_row, ship_column = randint(0, len(board) - 1), randint(0, len(board) - 1)
         while board[ship_row][ship_column] == "S":
-            ship_row, ship_column = randint(0, 4), randint(0, 4)
+            ship_row, ship_column = randint(0, len(board) - 1), randint(0, len(board) - 1)
         board[ship_row][ship_column] = "S"
 
 
-#def player_target_location():
+#def player_target():
 
 
-#def computer_target_location():
+#def computer_target_():
 
 welcome_msg()
 create_board(PLAYER_BOARD)
+place_ships(PLAYER_BOARD)
 print_board(PLAYER_BOARD)
 print("This is the player's board")
 create_board(COMPUTER_BOARD)
+place_ships(COMPUTER_BOARD)
 print_board(COMPUTER_BOARD)
 print("This is the computer's board")
-place_ships(PLAYER_BOARD)
-place_ships(COMPUTER_BOARD)
 print("The ships have been placed, let the game begin!")
 
 
