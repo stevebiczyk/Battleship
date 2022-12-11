@@ -1,31 +1,40 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# PROJECT 3 - BATTLESHIP
 
-Welcome stevebiczyk,
+# Overview
 
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **August 17, 2021**
+My chosen project was to create a Battleships game that can be played inside the Python Terminal window.
 
-## Reminders
+![ScreenShot](./readme-images/ami-responsive.png)
 
-* Your code must be placed in the `run.py` file
-* Your dependencies must be placed in the `requirements.txt` file
-* Do not edit any of the other files or your code may not deploy properly
+The live game can be found here : <a href = "https://project3-steveb-battleships.herokuapp.com/">BattleShips</a>
 
-## Creating the Heroku app
+#  
+# Table of Contents
 
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
+- [BATTLESHIPS](#battleships)
+  - [Overview](#overview)
+  - [Table of contents](#table-ofcontents)
+  - [Game Rules](#how-to-play)
+  - [Features](#features)
+  - [Design](#design)
+- [Testing](#testing)
+- [Technologies Used](#technologies-used)
+- [Deployment](#deployment)
+- [Credits](#credits-and-references)
+- [Acknowledgements](#acknowledgements)
 
-1. `heroku/python`
-2. `heroku/nodejs`
+# Game Rules
 
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
+# Features
 
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
+# Design
 
-Connect your GitHub repository and deploy as normal.
+# Testing
 
-## Constraints
+# Technologies Used
 
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
+# Deployment
 
------
-Happy coding!
+# Credits
+
+# Acknowledgements

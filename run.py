@@ -18,7 +18,7 @@ def welcome_msg():
     print("You have 5 ships each, sink the opponent's ships first to win!")
     print("Make your selection by choosing a number between 1 and 6")
     print("The board is 5 rows and 5 columns.")
-    print("Hits are marked with * and misses are X")
+    print("Hits are marked with * and misses are x")
 
 
 def create_board(board):
@@ -27,7 +27,7 @@ def create_board(board):
     This function generates a nested list.
     It consist of 5 rows and 5 columns of the letter "O"
     """
-    for i in range(5):
+    for x in range(5):
         board.append(["."] * 5)
     return board
 
@@ -103,40 +103,40 @@ def computer_target(board):
             f" and column {comp_column + 1}")
         print("You're lucky player, the computer missed!")
         PLAYER_BOARD[comp_row][comp_column] = "X"
-        print_boards(board) # to check state of game
-        print(computer_score) # to check the score
+        print_boards(board)  # to check state of game
+        print(computer_score)  # to check the score
 
 
-def player_target():
+def player_target(board):
     """
     Player target selection
     """
     turns = 0
+    player_score = 0
     for turn in range(10):
         try:
             target_row = int(input("Select a row: (Number between 1 and 5)\n"))
             target_column = int(input("Select a Column: (Number between 1 and 5) \n"))
 
-            if (target_row == ship_row and target_col == ship_column):
-                board[target_row][target_column] = "*"
-                print("Congratulations! You sunk the battleship, ")
+            if target_row == HIDDEN_BOARD [ship_row] and target_column == HIDDEN_BOARD [ship_column]:
+                COMPUTER_BOARD[target_row][target_column] = "*"
+                print("Congratulations! You hit the computer's ship!")
                 print_boards(board)
                 turns = turns + 1
+                player_score += 1
                 break
-            elif (target_row < 0 or target_row > 3) or \
-                    (target_col < 0 or target_col > 3):
+            elif (target_row < 1 or target_row > 5) or \
+                    (target_column < 1 or target_column > 5):
                 print("Your selection is out of range! Try again")
                 turns = turns + 1
             else:
-                board[target_row][target_column] = "O"
-                miss.append([target_row, target_col])
-                #print("Answers you have guessed:" + str(miss))
+                board[target_row][target_column] = "x"
                 print("You Missed! Try Again")
                 print_boards(board)
                 turns = turns + 1
 
         except ValueError:
-            print("Error with value input")
+            print("Error with input value")
             print("Please type in a number")
             continue
 
@@ -157,7 +157,7 @@ create_board(COMPUTER_BOARD)
 print_board(COMPUTER_BOARD)
 print("This is the computer's board")
 print("The ships have been placed, let the game begin!")
-#player_target()
+player_target(HIDDEN_BOARD)
 computer_target(PLAYER_BOARD)
 
 
