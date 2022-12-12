@@ -1,4 +1,7 @@
 from random import randint
+"""
+Importing randint function
+"""
 
 PLAYER_BOARD = []
 COMPUTER_BOARD = []
@@ -45,6 +48,10 @@ def print_board(board):
 
 
 def print_boards(board):
+    """
+    Display both game boards at the start of each round
+    """
+
     # create_board(PLAYER_BOARD)
     # place_ships(PLAYER_BOARD)
     print_board(PLAYER_BOARD)
@@ -106,39 +113,49 @@ def computer_target(board):
         print_boards(board)  # to check state of game
         print(computer_score)  # to check the score
 
-
 def player_target(board):
     """
     Player target selection
     """
     turns = 0
     player_score = 0
-    for turn in range(10):
-        try:
-            target_row = int(input("Select a row: (Number between 1 and 5)\n"))
-            target_column = int(input("Select a Column: (Number between 1 and 5) \n"))
 
-            if target_row == HIDDEN_BOARD [ship_row] and target_column == HIDDEN_BOARD [ship_column]:
+    # Get input from player
+    while True:
+        try:
+            target_row = int(input("Select a row:(Number between 1 and 5)\n"))
+            target_column = int(
+                input("Select a column:(Number between 1 and 5) \n"))
+
+            # Check if target is valid
+            if target_row < 1 or target_row > 5 or target_column < 1 or target_column > 5:
+                print("Invalid target. Please choose a row and column between 1 and 5.")
+                continue
+
+            # Check if target has been selected before
+            if HIDDEN_BOARD[target_row][target_column] == "*" or HIDDEN_BOARD[target_row][target_column] == "x":
+                print("You already targeted this spot, aim again")
+                turns = turns + 1
+                continue
+
+            # Update boards and score based on target
+            if HIDDEN_BOARD[target_row][target_column] == "S":
+                HIDDEN_BOARD[target_row][target_column] = "*"
                 COMPUTER_BOARD[target_row][target_column] = "*"
                 print("Congratulations! You hit the computer's ship!")
-                print_boards(board)
+                print_boards(board)  # to check hit
                 turns = turns + 1
                 player_score += 1
-                break
-            elif (target_row < 1 or target_row > 5) or \
-                    (target_column < 1 or target_column > 5):
-                print("Your selection is out of range! Try again")
-                turns = turns + 1
             else:
-                board[target_row][target_column] = "x"
-                print("You Missed! Try Again")
+                HIDDEN_BOARD[target_row][target_column] == "x"
+                print("You missed! Try again.")
                 print_boards(board)
-                turns = turns + 1
+            break
 
         except ValueError:
             print("Error with input value")
             print("Please type in a number")
-            continue
+
 
 
 # validate_player_target():
