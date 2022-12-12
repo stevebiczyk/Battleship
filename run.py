@@ -22,6 +22,7 @@ def welcome_msg():
     print("Hits are marked with * and misses are x")
 
     # Return the player_name variable so it can be used later in the program
+    
     return player_name
     # Use the welcome_msg() function to get the player's name and assign it to a variable
     # player_name = welcome_msg()
@@ -163,43 +164,57 @@ def player_target(board):
             print("Error with input value")
             print("Please type in a number")
 
+
 def play_again():
     while True:
         response = input("Would you like to play again? (y/n) ")
         if response == "y":
+            # Start the game again here
             return True
         elif response == "n":
+            print("Thanks for playing! Goodbye.")
             return False
         else:
             print("Invalid response. Please enter 'y' to play again or 'n' to quit.")
 
-            
-"""
-if not play_again():
+
+def quit():
+    # Add code to clean up and exit the game here
     print("Thanks for playing! Goodbye.")
-    break
-"""
+    exit()
 
 
-# validate_player_target():
-# def computer_target_():
-# def ships_sunk():
-welcome_msg()
-create_board(PLAYER_BOARD)
-place_ships(PLAYER_BOARD)
-print_board(PLAYER_BOARD)
-print("This is the player's board")
-create_board(HIDDEN_BOARD)
-place_ships(HIDDEN_BOARD)
-print_board(HIDDEN_BOARD)
-print("This is the hidden board")
-create_board(COMPUTER_BOARD)
-print_board(COMPUTER_BOARD)
-print("This is the computer's board")
-print("The ships have been placed, let the game begin!")
-player_target(HIDDEN_BOARD)
-computer_target(PLAYER_BOARD)
+def play_game():
+    # Add code to start and play the game here
 
+    while True:
+        play_game()
+    if not play_again():
+        quit()
+
+
+# def ships_hit():
+
+def game_loop():
+
+    welcome_msg()
+    create_board(PLAYER_BOARD)
+    place_ships(PLAYER_BOARD)
+    print_board(PLAYER_BOARD)
+    print("This is the player's board")
+    create_board(HIDDEN_BOARD)
+    place_ships(HIDDEN_BOARD)
+    print_board(HIDDEN_BOARD)
+    print("This is the hidden board")
+    create_board(COMPUTER_BOARD)
+    print_board(COMPUTER_BOARD)
+    print("This is the computer's board")
+    print("The ships have been placed, let the game begin!")
+    player_target(HIDDEN_BOARD)
+    computer_target(PLAYER_BOARD)
+
+
+game_loop()
 
 # Remaining functions/features to be added
 
