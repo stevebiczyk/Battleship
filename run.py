@@ -1,13 +1,11 @@
-from random import randint
-"""
-Importing randint function
-"""
+from random import randint  # importing randint function
 
 PLAYER_BOARD = []
 COMPUTER_BOARD = []
 HIDDEN_BOARD = []
-# player_score = 0
-# computer_score = 0
+player_name = ""
+player_score = 0
+computer_score = 0
 
 
 def welcome_msg():
@@ -22,6 +20,14 @@ def welcome_msg():
     print("Make your selection by choosing a number between 1 and 6")
     print("The board is 5 rows and 5 columns.")
     print("Hits are marked with * and misses are x")
+
+    # Return the player_name variable so it can be used later in the program
+    return player_name
+    # Use the welcome_msg() function to get the player's name and assign it to a variable
+    # player_name = welcome_msg()
+
+    # Use the player_name variable later in the program
+    print(f"Let's get started, {player_name}!")
 
 
 def create_board(board):
@@ -54,13 +60,13 @@ def print_boards(board):
 
     # create_board(PLAYER_BOARD)
     # place_ships(PLAYER_BOARD)
+    print(f"This is the {player_name}'s board")
     print_board(PLAYER_BOARD)
-    print("This is the player's board")
     # create_board(HIDDEN_BOARD)
     # place_ships(HIDDEN_BOARD)
     # create_board(COMPUTER_BOARD)
-    print_board(COMPUTER_BOARD)
     print("This is the computer's board")
+    print_board(COMPUTER_BOARD)
 
 
 def gen_random_num(board):
@@ -110,8 +116,8 @@ def computer_target(board):
             f" and column {comp_column + 1}")
         print("You're lucky player, the computer missed!")
         PLAYER_BOARD[comp_row][comp_column] = "X"
-        print_boards(board)  # to check state of game
-        print(computer_score)  # to check the score
+    return computer_score
+        
 
 def player_target(board):
     """
@@ -147,15 +153,32 @@ def player_target(board):
                 turns = turns + 1
                 player_score += 1
             else:
-                HIDDEN_BOARD[target_row][target_column] == "x"
+                HIDDEN_BOARD[target_row][target_column] == "."
                 print("You missed! Try again.")
                 print_boards(board)
+                print_board(HIDDEN_BOARD)
             break
 
         except ValueError:
             print("Error with input value")
             print("Please type in a number")
 
+def play_again():
+    while True:
+        response = input("Would you like to play again? (y/n) ")
+        if response == "y":
+            return True
+        elif response == "n":
+            return False
+        else:
+            print("Invalid response. Please enter 'y' to play again or 'n' to quit.")
+
+            
+"""
+if not play_again():
+    print("Thanks for playing! Goodbye.")
+    break
+"""
 
 
 # validate_player_target():
@@ -180,8 +203,8 @@ computer_target(PLAYER_BOARD)
 
 # Remaining functions/features to be added
 
-# Player selection for placing the shot
-# Random selection for computer's shot
 # Check how many ships are hit
 # Score counter
 # Round counter
+# Start new round or exit game prompt
+# Final message stating winner
