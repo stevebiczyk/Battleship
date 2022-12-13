@@ -20,15 +20,11 @@ def welcome_msg():
     print("Make your selection by choosing a number between 1 and 6")
     print("The board is 5 rows and 5 columns.")
     print("Hits are marked with * and misses are x")
-
-    # Return the player_name variable so it can be used later in the program
-    
     return player_name
-    # Use the welcome_msg() function to get the player's name and assign it to a variable
-    # player_name = welcome_msg()
-
-    # Use the player_name variable later in the program
-    print(f"Let's get started, {player_name}!")
+    
+# Use the player_name variable later in the program
+# player_name = welcome_msg()
+# print(f"Let's get started, {player_name}!")
 
 
 def create_board(board):
@@ -165,6 +161,18 @@ def player_target(board):
             print("Please type in a number")
 
 
+def hit_counter(board):
+
+    # Keeping track of ships that have been hit
+
+    hits = 0
+    for row in board:
+        for column in row:
+            if column == "*":
+                count += 1
+    return count
+
+
 def play_again():
     while True:
         response = input("Would you like to play again? (y/n) ")
@@ -201,7 +209,7 @@ def game_loop():
     create_board(PLAYER_BOARD)
     place_ships(PLAYER_BOARD)
     print_board(PLAYER_BOARD)
-    print("This is the player's board")
+    print(f"This is the {player_name}'s board")
     create_board(HIDDEN_BOARD)
     place_ships(HIDDEN_BOARD)
     print_board(HIDDEN_BOARD)
@@ -212,14 +220,18 @@ def game_loop():
     print("The ships have been placed, let the game begin!")
     player_target(HIDDEN_BOARD)
     computer_target(PLAYER_BOARD)
+    hit_counter(board)
 
 
 game_loop()
 
-# Remaining functions/features to be added
 
+# Remaining functions/features to be added or completed
+
+# Turn counter for 10 turns
+# Start new round or exit game prompt after each turn
+# Game boards with changes displayed at the end of each round or start of new round
 # Check how many ships are hit
-# Score counter
-# Round counter
-# Start new round or exit game prompt
+# Score counter for both player and computer
+# Deciding winner either by sinking all ships or higher score
 # Final message stating winner
