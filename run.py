@@ -3,6 +3,7 @@ from random import randint  # importing randint function
 PLAYER_BOARD = []
 COMPUTER_BOARD = []
 HIDDEN_BOARD = []
+TURN_COUNTER = 0
 player_name = ""
 player_score = 0
 computer_score = 0
@@ -23,8 +24,8 @@ def welcome_msg():
     return player_name
     
 # Use the player_name variable later in the program
-# player_name = welcome_msg()
-# print(f"Let's get started, {player_name}!")
+player_name = welcome_msg()
+print(f"Let's get started, {player_name}!")
 
 
 def create_board(board):
@@ -92,7 +93,7 @@ def place_ships(board):
 
 def computer_target(board):
 
-    computer_score = 0
+    global computer_score
 
     comp_row, comp_column = randint(
         0, len(board) - 1), randint(0, len(board) - 1)
@@ -121,7 +122,7 @@ def player_target(board):
     Player target selection
     """
     turns = 0
-    player_score = 0
+    global player_score
 
     # Get input from player
     while True:
@@ -136,25 +137,26 @@ def player_target(board):
                 continue
 
             # Check if target has been selected before
-            if HIDDEN_BOARD[target_row][target_column] == "*" or HIDDEN_BOARD[target_row][target_column] == "x":
+            if HIDDEN_BOARD[target_row-1][target_column-1] == "*" or HIDDEN_BOARD[target_row-1][target_column] == "x":
                 print("You already targeted this spot, aim again")
                 turns = turns + 1
                 continue
 
             # Update boards and score based on target
-            if HIDDEN_BOARD[target_row][target_column] == "S":
-                HIDDEN_BOARD[target_row][target_column] = "*"
-                COMPUTER_BOARD[target_row][target_column] = "*"
+            if HIDDEN_BOARD[target_row-1][target_column-1] == "S":
+                HIDDEN_BOARD[target_row-1][target_column-1] = "*"
+                COMPUTER_BOARD[target_row-1][target_column-1] = "*"
                 print("Congratulations! You hit the computer's ship!")
                 print_boards(board)  # to check hit
                 turns = turns + 1
                 player_score += 1
             else:
-                HIDDEN_BOARD[target_row][target_column] == "."
-                print("You missed! Try again.")
+                HIDDEN_BOARD[target_row-1][target_column-1] == "."
+                COMPUTER_BOARD[target_row-1][target_column-1] = "x"
+                print("You missed! Better luck next time!")
                 print_boards(board)
-                print_board(HIDDEN_BOARD)
-            break
+                # print_board(HIDDEN_BOARD)
+            return player_score
 
         except ValueError:
             print("Error with input value")
