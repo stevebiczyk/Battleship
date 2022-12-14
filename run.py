@@ -3,10 +3,10 @@ from random import randint  # importing randint function
 PLAYER_BOARD = []
 COMPUTER_BOARD = []
 HIDDEN_BOARD = []
-TURN_COUNTER = 0
 player_name = ""
 player_score = 0
 computer_score = 0
+TURN_COUNTER = 0
 
 
 def welcome_msg():
@@ -22,7 +22,8 @@ def welcome_msg():
     print("The board is 5 rows and 5 columns.")
     print("Hits are marked with * and misses are x")
     return player_name
-    
+
+
 # Use the player_name variable later in the program
 player_name = welcome_msg()
 print(f"Let's get started, {player_name}!")
@@ -83,39 +84,35 @@ def place_ships(board):
     Duplicate ship placement is also handled by the counter.
     """
     for ship in range(5):
-        ship_row, ship_column = randint(
-            0, len(board) - 1), randint(0, len(board) - 1)
+        ship_row, ship_column = randint(0, len(board) - 1), randint(0, len(board) - 1)
         while board[ship_row][ship_column] == "S":
-            ship_row, ship_column = randint(
-                0, len(board) - 1), randint(0, len(board) - 1)
+            ship_row, ship_column = randint(0, len(board) - 1), randint(
+                0, len(board) - 1
+            )
         board[ship_row][ship_column] = "S"
 
 
 def computer_target(board):
-
     global computer_score
 
-    comp_row, comp_column = randint(
-        0, len(board) - 1), randint(0, len(board) - 1)
-    if (PLAYER_BOARD[comp_row][comp_column] == "*" or
-            PLAYER_BOARD[comp_row][comp_column] == "X"):
+    comp_row, comp_column = randint(0, len(board) - 1), randint(0, len(board) - 1)
+    if (
+        PLAYER_BOARD[comp_row][comp_column] == "*"
+        or PLAYER_BOARD[comp_row][comp_column] == "X"
+    ):
         comp_row = randint(0, len(board) - 1)
         comp_column = randint(0, len(board) - 1)
     elif PLAYER_BOARD[comp_row][comp_column] == "S":
         print("Player, your battleship has been hit!")
-        print(
-            f"The computer hit row {comp_row + 1}"
-            f" and column {comp_column + 1}")
+        print(f"The computer hit row {comp_row + 1}" f" and column {comp_column + 1}")
         PLAYER_BOARD[comp_row][comp_column] = "*"
         computer_score += 1
     else:
-        print(
-            f"The computer hit row {comp_row + 1}"
-            f" and column {comp_column + 1}")
+        print(f"The computer hit row {comp_row + 1}" f" and column {comp_column + 1}")
         print("You're lucky player, the computer missed!")
         PLAYER_BOARD[comp_row][comp_column] = "X"
     return computer_score
-        
+
 
 def player_target(board):
     """
@@ -128,34 +125,40 @@ def player_target(board):
     while True:
         try:
             target_row = int(input("Select a row:(Number between 1 and 5)\n"))
-            target_column = int(
-                input("Select a column:(Number between 1 and 5) \n"))
-
+            target_column = int(input("Select a column:(Number between 1 and 5) \n"))
             # Check if target is valid
-            if target_row < 1 or target_row > 5 or target_column < 1 or target_column > 5:
+            if (
+                target_row < 1
+                or target_row > 5
+                or target_column < 1
+                or target_column > 5
+            ):
                 print("Invalid target. Please choose a row and column between 1 and 5.")
                 continue
 
             # Check if target has been selected before
-            if HIDDEN_BOARD[target_row-1][target_column-1] == "*" or HIDDEN_BOARD[target_row-1][target_column] == "x":
+            if (
+                HIDDEN_BOARD[target_row - 1][target_column - 1] == "*"
+                or HIDDEN_BOARD[target_row - 1][target_column - 1] == "x"
+            ):
                 print("You already targeted this spot, aim again")
                 turns = turns + 1
                 continue
 
             # Update boards and score based on target
-            if HIDDEN_BOARD[target_row-1][target_column-1] == "S":
-                HIDDEN_BOARD[target_row-1][target_column-1] = "*"
-                COMPUTER_BOARD[target_row-1][target_column-1] = "*"
+            if HIDDEN_BOARD[target_row - 1][target_column - 1] == "S":
+                HIDDEN_BOARD[target_row - 1][target_column - 1] = "*"
+                COMPUTER_BOARD[target_row - 1][target_column - 1] = "*"
                 print("Congratulations! You hit the computer's ship!")
                 print_boards(board)  # to check hit
                 turns = turns + 1
                 player_score += 1
             else:
-                HIDDEN_BOARD[target_row-1][target_column-1] == "."
-                COMPUTER_BOARD[target_row-1][target_column-1] = "x"
-                print("You missed! Better luck next time!")
+                HIDDEN_BOARD[target_row - 1][target_column - 1] == "X"
+                COMPUTER_BOARD[target_row - 1][target_column - 1] = "X"
+                print("You missed! Try again.")
                 print_boards(board)
-                # print_board(HIDDEN_BOARD)
+                print_board(HIDDEN_BOARD)
             return player_score
 
         except ValueError:
@@ -166,7 +169,6 @@ def player_target(board):
 def hit_counter(board):
 
     # Keeping track of ships that have been hit
-
     hits = 0
     for row in board:
         for column in row:
@@ -205,54 +207,47 @@ def play_game():
 
 # def ships_hit():
 
+
 def game_loop():
 
     global TURN_COUNTER
 
-    welcome_msg()
     create_board(PLAYER_BOARD)
     place_ships(PLAYER_BOARD)
     print_board(PLAYER_BOARD)
     print(f"This is the {player_name}'s board")
     create_board(HIDDEN_BOARD)
     place_ships(HIDDEN_BOARD)
-    print_board(HIDDEN_BOARD)
-    print("This is the hidden board") # print for tests, delete after
+    print("This is the hidden board")
     create_board(COMPUTER_BOARD)
     print_board(COMPUTER_BOARD)
     print("This is the computer's board")
     print("The ships have been placed, let the game begin!")
 
-    while hit_counter(HIDDEN_BOARD) < 5 and hit_counter(PLAYER_BOARD) < 5 and (TURN_COUNTER<=9):
+    while (
+        hit_counter(HIDDEN_BOARD) < 5
+        and hit_counter(PLAYER_BOARD) < 5
+        and (TURN_COUNTER <= 9)
+    ):
         print("---------------new Round-----------------")
-        print("your score "+str(player_score))
-        print("Computer score "+str(computer_score))
-        TURN_COUNTER =TURN_COUNTER + 1
-
-    player_target(HIDDEN_BOARD)
-    computer_target(PLAYER_BOARD)
-    hit_counter(HIDDEN_BOARD)
+        print("your score " + str(player_score))
+        print("Computer score " + str(computer_score))
+        TURN_COUNTER = TURN_COUNTER + 1
+        player_target(HIDDEN_BOARD)
+        computer_target(PLAYER_BOARD)
+        hit_counter(HIDDEN_BOARD)
 
 
 game_loop()
-print("Number of ships you hit "+str(player_score))
-print("Number of ships hit by the computer "+str(computer_score))
-if(player_score<computer_score):
-    print("The computer won! Better luck next time.")
-elif (player_score>computer_score):
+print("Number of ships you hit " + str(player_score))
+print("Number of ships hit by computer " + str(computer_score))
+if player_score < computer_score:
+    print("The computer wins! Better luck next time.")
+elif player_score > computer_score:
     print("Congratulations! You are the winner!!!")
-elif(player_score==computer_score):
+elif player_score == computer_score:
     print("The game is over, it's a draw.")
 
 
-if(play_again()):game_loop()
-
-# Remaining functions/features to be added or completed
-
-# Turn counter for 10 turns
-# Start new round or exit game prompt after each turn
-# Game boards with changes displayed at the end of each round or start of new round
-# Check how many ships are hit
-# Score counter for both player and computer
-# Deciding winner either by sinking all ships or higher score
-# Final message stating winner
+if play_again():
+    game_loop()
