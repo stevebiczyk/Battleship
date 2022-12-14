@@ -171,8 +171,8 @@ def hit_counter(board):
     for row in board:
         for column in row:
             if column == "*":
-                count += 1
-    return count
+                hits += 1
+    return hits
 
 
 def play_again():
@@ -207,6 +207,8 @@ def play_game():
 
 def game_loop():
 
+    global TURN_COUNTER
+
     welcome_msg()
     create_board(PLAYER_BOARD)
     place_ships(PLAYER_BOARD)
@@ -215,18 +217,35 @@ def game_loop():
     create_board(HIDDEN_BOARD)
     place_ships(HIDDEN_BOARD)
     print_board(HIDDEN_BOARD)
-    print("This is the hidden board")
+    print("This is the hidden board") # print for tests, delete after
     create_board(COMPUTER_BOARD)
     print_board(COMPUTER_BOARD)
     print("This is the computer's board")
     print("The ships have been placed, let the game begin!")
+
+    while hit_counter(HIDDEN_BOARD) < 5 and hit_counter(PLAYER_BOARD) < 5 and (TURN_COUNTER<=9):
+        print("---------------new Round-----------------")
+        print("your score "+str(player_score))
+        print("Computer score "+str(computer_score))
+        TURN_COUNTER =TURN_COUNTER + 1
+
     player_target(HIDDEN_BOARD)
     computer_target(PLAYER_BOARD)
-    hit_counter(board)
+    hit_counter(HIDDEN_BOARD)
 
 
 game_loop()
+print("Number of ships you hit "+str(player_score))
+print("Number of ships hit by the computer "+str(computer_score))
+if(player_score<computer_score):
+    print("The computer won! Better luck next time.")
+elif (player_score>computer_score):
+    print("Congratulations! You are the winner!!!")
+elif(player_score==computer_score):
+    print("The game is over, it's a draw.")
 
+
+if(play_again()):game_loop()
 
 # Remaining functions/features to be added or completed
 
