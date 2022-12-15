@@ -55,13 +55,8 @@ def display_boards(board):
     Display both game boards at the start of each round
     """
 
-    # create_board(PLAYER_BOARD)
-    # place_ships(PLAYER_BOARD)
     print(f"This is the {PLAYER_NAME}'s board")
     print_board(PLAYER_BOARD)
-    # create_board(HIDDEN_BOARD)
-    # place_ships(HIDDEN_BOARD)
-    # create_board(COMPUTER_BOARD)
     print("This is the computer's board")
     print_board(COMPUTER_BOARD)
 
@@ -158,7 +153,6 @@ def player_target(board):
                 or HIDDEN_BOARD[target_row - 1][target_column - 1] == "x"
             ):
                 print("You already targeted this spot, aim again")
-                # turns = turns + 1
                 continue
 
             # Update boards and score based on target
@@ -174,7 +168,6 @@ def player_target(board):
                 COMPUTER_BOARD[target_row - 1][target_column - 1] = "X"
                 print("You missed! Try again.")
                 display_boards(board)
-                #  print_board(HIDDEN_BOARD)
             return PLAYER_SCORE
 
         except ValueError:
@@ -271,7 +264,6 @@ def game_loop():
     print(f"This is the {PLAYER_NAME}'s board")
     create_board(HIDDEN_BOARD)
     place_ships(HIDDEN_BOARD)
-    print("This is the hidden board")
     create_board(COMPUTER_BOARD)
     print_board(COMPUTER_BOARD)
     print("This is the computer's board")
