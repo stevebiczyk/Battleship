@@ -35,7 +35,7 @@ def create_board(board):
     This function generates a nested list.
     It consist of 5 rows and 5 columns of the letter "O"
     """
-    for x in range(5):
+    for _ in range(5):
         board.append(["."] * 5)
     return board
 
@@ -46,13 +46,11 @@ def print_board(board):
     """
     print("  1 2 3 4 5 ")
     print("  ---------")
-    row_number = 1
-    for row in board:
+    for row_number, row in enumerate(board, start=1):
         print(row_number, (" ").join(row))
-        row_number += 1
 
 
-def print_boards(board):
+def display_boards(board):
     """
     Display both game boards at the start of each round
     """
@@ -114,12 +112,12 @@ def computer_target(board):
         comp_column = randint(0, len(board) - 1)
     elif PLAYER_BOARD[comp_row][comp_column] == "S":
         print("Player, your battleship has been hit!")
-        print(f"The computer hit row {comp_row + 1} \
+        print(f"The computer hit row {comp_row + 1}\
         and column {comp_column + 1}")
         PLAYER_BOARD[comp_row][comp_column] = "*"
         COMPUTER_SCORE += 1
     else:
-        print(f"The computer hit row {comp_row + 1} \
+        print(f"The computer hit row {comp_row + 1}\
         and column {comp_column + 1}")
         print("You're lucky player, the computer missed!")
         PLAYER_BOARD[comp_row][comp_column] = "X"
@@ -160,7 +158,7 @@ def player_target(board):
                 or HIDDEN_BOARD[target_row - 1][target_column - 1] == "x"
             ):
                 print("You already targeted this spot, aim again")
-                turns = turns + 1
+                # turns = turns + 1
                 continue
 
             # Update boards and score based on target
@@ -168,14 +166,14 @@ def player_target(board):
                 HIDDEN_BOARD[target_row - 1][target_column - 1] = "*"
                 COMPUTER_BOARD[target_row - 1][target_column - 1] = "*"
                 print("Congratulations! You hit the computer's ship!")
-                print_boards(board)  # to check hit
+                display_boards(board)  # to check hit
                 turns = turns + 1
                 PLAYER_SCORE += 1
             else:
                 HIDDEN_BOARD[target_row - 1][target_column - 1] == "X"
                 COMPUTER_BOARD[target_row - 1][target_column - 1] = "X"
                 print("You missed! Try again.")
-                print_boards(board)
+                display_boards(board)
                 #  print_board(HIDDEN_BOARD)
             return PLAYER_SCORE
 
@@ -201,22 +199,18 @@ def hit_counter(board):
 
 def play_again():
     """
-    Prompt the player to play again or quit the game.
-    This function asks the player if they want to play again, and returns
-    `True` if they choose to play again, or `False` if they choose
-     to quit the game.
+    Ask the player if they want to play again and return their response.
     """
-    while True:
-        response = input("Would you like to play again? (y/n) ")
-        if response == "y":
-            # Start the game again here
-            return True
-        elif response == "n":
-            print("Thanks for playing! Goodbye.")
-            return False
-        else:
-            print("Invalid response. Please enter 'y' \
-                 to play again or 'n' to quit.")
+    print("Do you want to play again? (y/n)")
+    response = input()
+    if response.lower() == "y":
+        return True
+    elif response.lower() == "n":
+        print("Thanks for playing! Goodbye.")
+        return False
+    else:
+        print("Invalid response. Please type 'y' or 'n' and press Enter.")
+        return play_again()
 
 
 def quit():
@@ -291,9 +285,9 @@ def game_loop():
         and (TURN_COUNTER <= 9)
     ):
         print("---------------new Round-----------------")
-        print("your score " + str(PLAYER_SCORE))
-        print("Computer score " + str(COMPUTER_SCORE))
-        TURN_COUNTER = TURN_COUNTER + 1
+        print(f"your score {PLAYER_SCORE}")
+        print(f"Computer score {COMPUTER_SCORE}")
+        TURN_COUNTER += 1
         player_target(HIDDEN_BOARD)
         computer_target(PLAYER_BOARD)
         hit_counter(HIDDEN_BOARD)
@@ -310,8 +304,8 @@ def end_game():
     chooses to play again, the `game_loop` function
     is called to start a new game.
     """
-    print("Number of ships you hit " + str(PLAYER_SCORE))
-    print("Number of ships hit by computer " + str(COMPUTER_SCORE))
+    print(f"Number of ships you hit {str(PLAYER_SCORE)}")
+    print(f"Number of ships hit by computer {str(COMPUTER_SCORE)}")
     if PLAYER_SCORE < COMPUTER_SCORE:
         print("The computer wins! Better luck next time.")
     elif PLAYER_SCORE > COMPUTER_SCORE:
