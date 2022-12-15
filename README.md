@@ -64,6 +64,16 @@ The player and the computer will take ten turns to find all of the ships. In cas
 
 # Deployment
 
+* The project was deployed on the Heroku website using Code Institute's terminal template. Here are the steps I have taken to successfully deploy the project: 
+    
+    1. Create a new repository from the Code Institute template.
+    2. Create a new Heroku account / Register
+    3. Create a new Heroku App
+    4. Set buildpacks to Python and NodeJS in this order.
+    5. Link the Heroku App into the repository on GitHub
+    6. Deploy the App.
+
+
 # Credits
 
 # Acknowledgements
