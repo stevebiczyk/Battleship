@@ -18,9 +18,9 @@ def welcome_msg():
     print(f"Hi {PLAYER_NAME}, welcome to Battleships!")
     print("Your goal is to beat the Computer.")
     print("You have 5 ships each, sink the opponent's ships first to win!")
-    print("Make your selection by choosing a number between 1 and 6")
-    print("The board is 5 rows and 5 columns.")
-    print("Hits are marked with * and misses are x")
+    print("Make your selection by choosing a number between 1 and 5")
+    print("The board has 5 rows and 5 columns.")
+    print("Hits are marked with * and misses are with x")
     return PLAYER_NAME
 
 
@@ -55,9 +55,9 @@ def display_boards(board):
     Display both game boards at the start of each round
     """
 
-    print(f"This is the {PLAYER_NAME}'s board")
+    print(f"This is {PLAYER_NAME}'s board\n")
     print_board(PLAYER_BOARD)
-    print("This is the computer's board")
+    print("This is the computer's board\n")
     print_board(COMPUTER_BOARD)
 
 
@@ -86,39 +86,6 @@ def place_ships(board):
         board[ship_row][ship_column] = "S"
 
 
-def computer_target(board):
-    """
-    Choose a target on the player's board and update the game state.
-
-    This function randomly selects a row and column on the player's board to
-    target. It then checks if the target has been selected before, or contains
-    a ship. Based on the result, it updates the game state (boards and score),
-    and prints a message to the player.
-    """
-    global COMPUTER_SCORE
-
-    comp_row, comp_column = randint(
-        0, len(board) - 1), randint(0, len(board) - 1)
-    if (
-        PLAYER_BOARD[comp_row][comp_column] == "*"
-        or PLAYER_BOARD[comp_row][comp_column] == "X"
-    ):
-        comp_row = randint(0, len(board) - 1)
-        comp_column = randint(0, len(board) - 1)
-    elif PLAYER_BOARD[comp_row][comp_column] == "S":
-        print("Player, your battleship has been hit!")
-        print(f"The computer hit row {comp_row + 1}\
-        and column {comp_column + 1}")
-        PLAYER_BOARD[comp_row][comp_column] = "*"
-        COMPUTER_SCORE += 1
-    else:
-        print(f"The computer hit row {comp_row + 1}\
-        and column {comp_column + 1}")
-        print("You're lucky player, the computer missed!")
-        PLAYER_BOARD[comp_row][comp_column] = "X"
-    return COMPUTER_SCORE
-
-
 def player_target(board):
     """
     Select a target on the computer's board and update the game state.
@@ -144,13 +111,13 @@ def player_target(board):
                 or target_column > 5
             ):
                 print("Invalid target. \
-                     Please choose a row and column between 1 and 5.")
+                Please choose a row and column between 1 and 5.")
                 continue
 
             # Check if target has been selected before
             if (
-                HIDDEN_BOARD[target_row - 1][target_column - 1] == "*"
-                or HIDDEN_BOARD[target_row - 1][target_column - 1] == "x"
+                HIDDEN_BOARD[target_row - 1][target_column - 1] == "x"
+                or HIDDEN_BOARD[target_row - 1][target_column - 1] == "*"
             ):
                 print("You already targeted this spot, aim again")
                 continue
@@ -160,19 +127,52 @@ def player_target(board):
                 HIDDEN_BOARD[target_row - 1][target_column - 1] = "*"
                 COMPUTER_BOARD[target_row - 1][target_column - 1] = "*"
                 print("Congratulations! You hit the computer's ship!")
-                display_boards(board)  # to check hit
                 turns = turns + 1
                 PLAYER_SCORE += 1
             else:
-                HIDDEN_BOARD[target_row - 1][target_column - 1] == "X"
-                COMPUTER_BOARD[target_row - 1][target_column - 1] = "X"
-                print("You missed! Try again.")
-                display_boards(board)
+                HIDDEN_BOARD[target_row - 1][target_column - 1] = "x"
+                COMPUTER_BOARD[target_row - 1][target_column - 1] = "x"
+                print("You missed! Try again.\n")
             return PLAYER_SCORE
 
         except ValueError:
             print("Error with input value")
             print("Please type in a number")
+
+
+def computer_target(board):
+    """
+    Choose a target on the player's board and update the game state.
+
+    This function randomly selects a row and column on the player's board to
+    target. It then checks if the target has been selected before, or contains
+    a ship. Based on the result, it updates the game state (boards and score),
+    and prints a message to the player.
+    """
+    global COMPUTER_SCORE
+
+    comp_row, comp_column = randint(
+        0, len(board) - 1), randint(0, len(board) - 1)
+    if (
+        PLAYER_BOARD[comp_row][comp_column] == "*"
+        or PLAYER_BOARD[comp_row][comp_column] == "X"
+    ):
+        comp_row = randint(0, len(board) - 1)
+        comp_column = randint(0, len(board) - 1)
+    elif PLAYER_BOARD[comp_row][comp_column] == "S":
+        print("Player, your battleship has been hit!")
+        print(f"The computer hit row {comp_row + 1}\
+        and column {comp_column + 1}")
+        PLAYER_BOARD[comp_row][comp_column] = "*"
+        # display_boards(board)
+        COMPUTER_SCORE += 1
+    else:
+        print(f"The computer hit row {comp_row + 1}\
+        and column {comp_column + 1}")
+        print("You're lucky player, the computer missed!")
+        PLAYER_BOARD[comp_row][comp_column] = "X"
+        # display_boards(board)
+    return COMPUTER_SCORE
 
 
 def hit_counter(board):
@@ -260,14 +260,14 @@ def game_loop():
     TURN_COUNTER = 0
     create_board(PLAYER_BOARD)
     place_ships(PLAYER_BOARD)
+    print("The ships have been placed, let the game begin!\n")  # is printed
     print_board(PLAYER_BOARD)
-    print(f"This is the {PLAYER_NAME}'s board")
+    print(f"This is {PLAYER_NAME}'s board\n")  # this is printed
     create_board(HIDDEN_BOARD)
     place_ships(HIDDEN_BOARD)
     create_board(COMPUTER_BOARD)
     print_board(COMPUTER_BOARD)
-    print("This is the computer's board")
-    print("The ships have been placed, let the game begin!")
+    print("This is the computer's board\n")  # this is printed
 
     # Run the gameplay loop until the game ends
 
@@ -276,13 +276,17 @@ def game_loop():
         and hit_counter(PLAYER_BOARD) < 5
         and (TURN_COUNTER <= 9)
     ):
-        print("---------------new Round-----------------")
-        print(f"your score {PLAYER_SCORE}")
-        print(f"Computer score {COMPUTER_SCORE}")
-        TURN_COUNTER += 1
+        print(f"---------------Round {TURN_COUNTER + 1}-----------------\n")
         player_target(HIDDEN_BOARD)
+        print_board(COMPUTER_BOARD)
+        print("This is the computer's board\n")
         computer_target(PLAYER_BOARD)
+        print_board(PLAYER_BOARD)
+        print(f"This is {PLAYER_NAME}'s board\n")
         hit_counter(HIDDEN_BOARD)
+        TURN_COUNTER += 1
+        print(f"{PLAYER_NAME}'s score is {PLAYER_SCORE}")
+        print(f"The computer's score is {COMPUTER_SCORE}\n")
     end_game()
 
 

@@ -5,9 +5,9 @@
 My chosen project was to create a Battleships game that can be played inside the Python Terminal window.
 The game was created using the Code Institute's Python Essentials Template and deployed on Heroku, displayed in browser-based terminal window.
 
-![ScreenShot](./readme-images/ami-responsive.png)
+![ScreenShot](./readme-images/responsive.png)
 
-The live game can be found here : <a href = "https://project3-steveb-battleships.herokuapp.com/">BattleShips</a>
+The live game can be found here : <a href = "https://steveb-project3-battleships.herokuapp.com/">BattleShips</a>
 
 #  
 ## Table of Contents
@@ -51,8 +51,19 @@ The player and the computer will take ten turns to find all of the ships. In cas
 * Adding decorative features such as ASCII art and colorful text
 * Allowing the player to change the level of difficulty by changing the size of the board, number of ships, etc
 * Creating additional levels of the game with score tracking and leader board
+* The game could include a feature for saving and loading games, allowing players to pick up where they left off at a later time.
 
 # Design
+
+The requirement was to create and deploy a terminal based battleship game in Python programming language.
+
+## Design criteria
+
+* The game should be easy to understand and play for users, with clear instructions provided at the start of the game.
+* The game should be visually appealing and easy to navigate, using ASCII art or other similar techniques to display the game board and other relevant information.
+* The game should be well-tested and free of bugs or other issues that could negatively impact the player's experience.
+* The game should be written in a way that is easy to understand and maintain, with clear and well-documented code.
+
 
 # Testing
 
@@ -61,6 +72,13 @@ The player and the computer will take ten turns to find all of the ships. In cas
 
 
 # Technologies Used
+
+* GitHub this was  For version control used to host the website, so it is viewable to the public.
+* GitPod This was used as an IDE, or the Integrated Development Area.
+* PEP8 This was used to check errors and bugs
+* Python The game itself is written in python and held in the run.py file.
+* Heroku Heroku was used to deploy the website as python is a backend language and the game needed a terminal to display the game.
+* Am I Responsive Used to test responsiveness of the game at different screen sizes
 
 # Deployment
 
