@@ -84,9 +84,10 @@ The requirement was to create and deploy a terminal based battleship game in Pyt
 
 * The project was deployed on the Heroku website using Code Institute's terminal template. Here are the steps I have taken to successfully deploy the project: 
     
-    1. Create a new repository from the Code Institute template.
+    1. Create a new repository from the Code Institute Python template.
     2. Create a new Heroku account / Register
     3. Create a new Heroku App
+    4. Set the Config Vars to PORT 8000 in the Settings tab
     4. Set buildpacks to Python and NodeJS in this order.
     5. Link the Heroku App into the repository on GitHub
     6. Deploy the App.

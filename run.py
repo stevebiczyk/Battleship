@@ -6,7 +6,7 @@ HIDDEN_BOARD = []
 PLAYER_NAME = ""
 PLAYER_SCORE = 0
 COMPUTER_SCORE = 0
-TURN_COUNTER = 0
+# TURN_COUNTER = 0
 
 
 def welcome_msg():
@@ -50,26 +50,6 @@ def print_board(board):
         print(row_number, (" ").join(row))
 
 
-def display_boards(board):
-    """
-    Display both game boards at the start of each round
-    """
-
-    print(f"This is {PLAYER_NAME}'s board\n")
-    print_board(PLAYER_BOARD)
-    print("This is the computer's board\n")
-    print_board(COMPUTER_BOARD)
-
-
-def gen_random_num(board):
-    """
-    Generate random number within the dimensions of the board.
-    Minus 1 as list index stars at 0 instead of 1
-    Used to place the ships in random locations
-    """
-    return randint(0, len(board) - 1)
-
-
 def place_ships(board):
     """
     Randomly generate and place 5 ships on the board.
@@ -86,7 +66,7 @@ def place_ships(board):
         board[ship_row][ship_column] = "S"
 
 
-def player_target(board):
+def player_target():
     """
     Select a target on the computer's board and update the game state.
     This function prompts the player to choose a row and column on the
@@ -164,14 +144,12 @@ def computer_target(board):
         print(f"The computer hit row {comp_row + 1}\
         and column {comp_column + 1}")
         PLAYER_BOARD[comp_row][comp_column] = "*"
-        # display_boards(board)
         COMPUTER_SCORE += 1
     else:
         print(f"The computer hit row {comp_row + 1}\
         and column {comp_column + 1}")
         print("You're lucky player, the computer missed!")
         PLAYER_BOARD[comp_row][comp_column] = "X"
-        # display_boards(board)
     return COMPUTER_SCORE
 
 
@@ -229,9 +207,6 @@ def play_game():
         quit()
 
 
-# def ships_hit():
-
-
 def game_loop():
     """
     Run the main gameplay loop for the battleship game.
@@ -260,14 +235,14 @@ def game_loop():
     TURN_COUNTER = 0
     create_board(PLAYER_BOARD)
     place_ships(PLAYER_BOARD)
-    print("The ships have been placed, let the game begin!\n")  # is printed
+    print("The ships have been placed, let the game begin!\n")
     print_board(PLAYER_BOARD)
-    print(f"This is {PLAYER_NAME}'s board\n")  # this is printed
+    print(f"This is {PLAYER_NAME}'s board\n")
     create_board(HIDDEN_BOARD)
     place_ships(HIDDEN_BOARD)
     create_board(COMPUTER_BOARD)
     print_board(COMPUTER_BOARD)
-    print("This is the computer's board\n")  # this is printed
+    print("This is the computer's board\n")
 
     # Run the gameplay loop until the game ends
 
@@ -277,7 +252,7 @@ def game_loop():
         and (TURN_COUNTER <= 9)
     ):
         print(f"---------------Round {TURN_COUNTER + 1}-----------------\n")
-        player_target(HIDDEN_BOARD)
+        player_target()
         print_board(COMPUTER_BOARD)
         print("This is the computer's board\n")
         computer_target(PLAYER_BOARD)
