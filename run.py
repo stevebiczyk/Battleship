@@ -6,7 +6,6 @@ HIDDEN_BOARD = []
 PLAYER_NAME = ""
 PLAYER_SCORE = 0
 COMPUTER_SCORE = 0
-# TURN_COUNTER = 0
 
 
 def welcome_msg():
@@ -135,7 +134,7 @@ def computer_target(board):
         0, len(board) - 1), randint(0, len(board) - 1)
     if (
         PLAYER_BOARD[comp_row][comp_column] == "*"
-        or PLAYER_BOARD[comp_row][comp_column] == "X"
+        or PLAYER_BOARD[comp_row][comp_column] == "x"
     ):
         comp_row = randint(0, len(board) - 1)
         comp_column = randint(0, len(board) - 1)
@@ -149,7 +148,7 @@ def computer_target(board):
         print(f"The computer hit row {comp_row + 1}\
         and column {comp_column + 1}")
         print("You're lucky player, the computer missed!")
-        PLAYER_BOARD[comp_row][comp_column] = "X"
+        PLAYER_BOARD[comp_row][comp_column] = "x"
     return COMPUTER_SCORE
 
 
